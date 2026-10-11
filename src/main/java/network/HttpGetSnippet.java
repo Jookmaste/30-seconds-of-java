@@ -24,6 +24,7 @@
 
 package network;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -34,18 +35,24 @@ import java.net.http.HttpResponse;
  */
 public class HttpGetSnippet {
 
+  private HttpGetSnippet() {
+  }
+
   /**
    * Performs HTTP GET request.
    *
    * @param uri the URI of the connection
    * @return response object
-   * @throws Exception i/o error, interruption error, etc
+   * @throws IOException          if an I/O error occurs
+   * @throws InterruptedException if the operation is interrupted
    */
-  public static HttpResponse<String> httpGet(String uri) throws Exception {
-    var client = HttpClient.newHttpClient();
+  public static HttpResponse<String> httpGet(String uri)
+          throws IOException, InterruptedException {
     var request = HttpRequest.newBuilder()
             .uri(URI.create(uri))
             .build();
-    return client.send(request, HttpResponse.BodyHandlers.ofString());
+    try (var client = HttpClient.newHttpClient()) {
+      return client.send(request, HttpResponse.BodyHandlers.ofString());
+    }
   }
 }

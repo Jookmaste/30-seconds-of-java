@@ -24,10 +24,15 @@
 
 package system;
 
+import java.util.Objects;
+
 /**
  * GetEnvOrDefaultSnippet.
  */
 public class GetEnvOrDefaultSnippet {
+
+  private GetEnvOrDefaultSnippet() {
+  }
 
   /**
    * Read an environment variable or return a default value when it is missing.
@@ -37,6 +42,6 @@ public class GetEnvOrDefaultSnippet {
    * @return environment variable value or default value
    */
   public static String getEnvOrDefault(String key, String defaultValue) {
-    return System.getenv().getOrDefault(key, defaultValue);
+    return Objects.requireNonNullElse(System.getenv(key), defaultValue);
   }
 }

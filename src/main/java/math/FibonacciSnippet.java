@@ -32,6 +32,9 @@ import java.util.List;
  */
 public class FibonacciSnippet {
 
+  private FibonacciSnippet() {
+  }
+
   /**
    * Recursive Fibonacci series. Works only for small n and is spectacularly inefficient
    *
@@ -55,13 +58,13 @@ public class FibonacciSnippet {
   public static int fibonacciBig(int n) {
     int previous = 0;
     int current = 1;
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < n; i++) {
       int t = previous + current;
       previous = current;
       current = t;
     }
 
-    return current;
+    return previous;
   }
 
   /**
